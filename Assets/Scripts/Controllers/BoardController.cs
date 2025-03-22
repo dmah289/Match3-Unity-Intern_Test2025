@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Solution.Task2;
+using BottomQueue;
 using UnityEngine;
 
 public class BoardController : MonoBehaviour

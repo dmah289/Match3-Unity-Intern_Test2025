@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Solution.Task2;
+using BottomQueue;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour

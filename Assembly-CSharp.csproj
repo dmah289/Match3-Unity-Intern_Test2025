@@ -54,6 +54,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\eSwipeDirection.cs" />
      <Compile Include="Assets\Scripts\Board\Board.cs" />
+     <Compile Include="Assets\Scripts\BottomQueue\WaitingCell.cs" />
+     <Compile Include="Assets\Scripts\BottomQueue\WaitingCellQueue.cs" />
      <Compile Include="Assets\Scripts\UI\UIMainManager.cs" />
      <Compile Include="Assets\Scripts\UI\UIToggleSound.cs" />
      <Compile Include="Assets\Scripts\Board\Cell.cs" />
@@ -65,7 +67,6 @@
      <Compile Include="Assets\Scripts\Controllers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Controllers\LevelTime.cs" />
      <Compile Include="Assets\Scripts\Board\Item.cs" />
-     <Compile Include="Assets\Scripts\Solution\Task2\WaitingCellQueue.cs" />
      <Compile Include="Assets\Scripts\Board\FishItem.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
      <Compile Include="Assets\Scripts\UI\UIPanelMain.cs" />
@@ -80,7 +81,6 @@
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
-     <Compile Include="Assets\Scripts\Solution\Task2\WaitingCell.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
      <Compile Include="Assets\Scripts\UI\IMenu.cs" />
@@ -738,8 +738,6 @@
  <Reference Include="Unity.2D.SpriteShape.Runtime">
  <HintPath>D:/Sources/Game/Match3-Unity-Intern-Test2025/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
