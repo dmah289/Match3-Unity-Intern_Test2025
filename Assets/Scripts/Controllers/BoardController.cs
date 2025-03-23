@@ -82,7 +82,7 @@ public class BoardController : MonoBehaviour
         if (!task1_Completed && Input.GetKeyDown(KeyCode.Space))
         {
             task1_Completed = true;
-            Board.Task1();
+            Board.Transform();
         }
             
         

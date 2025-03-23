@@ -13,22 +13,11 @@ namespace BottomQueue
 
         public GameManager GameManager { get; private set; }
 
-        private bool m_isDragging;
-
-        private Camera m_cam;
-        
-        private Collider2D m_hitCollider;
-
         public bool IsBusy { get; set; }
 
         public int TotalItemsOnQueue { get; set; }
 
         private const int MAX_QUEUE_SIZE = 5;
-
-        private void Awake()
-        {
-            m_cam = Camera.main;
-        }
 
         public void SetUp(GameSettings gameSettings, GameManager gameManager)
         {
@@ -67,8 +56,13 @@ namespace BottomQueue
 
         public IEnumerator OnItemSelected(Item item, int x, int y)
         {
+            while (IsBusy)
+                yield return null;
+            
             if(TotalItemsOnQueue < MAX_QUEUE_SIZE)
             {
+                IsBusy = true;
+                
                 yield return MoveToBottom(item, x, y);
 
                 yield return new WaitForSeconds(0.2f);
@@ -79,8 +73,9 @@ namespace BottomQueue
                 {
                     GameManager.SetState(GameManager.eStateGame.GAME_OVER);
                 }
-
                 GameManager.BoardController.CheckWin();
+                
+                IsBusy = false;
             }
         }
 
@@ -125,21 +120,21 @@ namespace BottomQueue
             {
                 if (Queue[i].IsSameType(Queue[i + 1]) && Queue[i].IsSameType(Queue[i + 2]))
                 {
-                    TotalItemsOnQueue -= 3;
-                    
                     Queue[i].ExplodeItem();
                     Queue[i+1].ExplodeItem();
                     Queue[i+2].ExplodeItem();
+                    
+                    TotalItemsOnQueue -= 3;
 
-                    if (i <= MAX_QUEUE_SIZE - 3 - 1)
+                    if (i <= MAX_QUEUE_SIZE - 4)
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            if (Queue[i + 3].Item != null)
+                            if (i + j + 3 < MAX_QUEUE_SIZE && Queue[i + j + 3].Item != null)
                             {
-                                Queue[i].Assign(Queue[i + 3].Item);
-                                Queue[i].ApplyItemMoveToPosition();
-                                Queue[i + 3].Free();
+                                Queue[i + j].Assign(Queue[i + j + 3].Item);
+                                Queue[i + j].ApplyItemMoveToPosition();
+                                Queue[i + j + 3].Free();
                             
                                 yield return new WaitForSeconds(0.1f);
                             }

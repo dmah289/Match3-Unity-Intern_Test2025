@@ -29,17 +29,32 @@ namespace BottomQueue
 
         private IEnumerator ReturnToBoard(BoardCell boardCell)
         {
-            waitingCellQueue.IsBusy = true;
-            
-            Item.SetViewRoot(waitingCellQueue.GameManager.BoardController.Board.Root);
-            
-            boardCell.Assign(Item);
-            boardCell.ApplyItemMoveToPosition();
-            
-            yield return new WaitForSeconds(0.2f);
+            while (waitingCellQueue.IsBusy)
+                yield return null;
 
-            waitingCellQueue.TotalItemsOnQueue--;
-            waitingCellQueue.IsBusy = false;
+            if (Item != null)
+            {
+                waitingCellQueue.IsBusy = true;
+            
+                Item.SetViewRoot(waitingCellQueue.GameManager.BoardController.Board.Root);
+            
+                boardCell.Assign(Item);
+                boardCell.ApplyItemMoveToPosition();
+            
+                yield return new WaitForSeconds(0.2f);
+
+                for (int i = Index; i < waitingCellQueue.TotalItemsOnQueue - 1; i++)
+                {
+                    waitingCellQueue.Queue[i].Assign(waitingCellQueue.Queue[i+1].Item);
+                    waitingCellQueue.Queue[i].ApplyItemMoveToPosition();
+                    
+                    yield return new WaitForSeconds(0.2f);
+                }
+
+                waitingCellQueue.TotalItemsOnQueue--;
+            
+                waitingCellQueue.IsBusy = false;
+            }
         }
     }
 }

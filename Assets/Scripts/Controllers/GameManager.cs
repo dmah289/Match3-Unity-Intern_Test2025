@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
                                 yield return new WaitForSeconds(0.5f);
                             }
                         }
-                    } else Debug.Log($"{x} - {y} : NULL");
+                    }
                 }
             }
         

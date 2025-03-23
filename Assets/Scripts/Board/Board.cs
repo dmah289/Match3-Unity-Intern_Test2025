@@ -754,15 +754,16 @@ public class Board
         }
     }
 
-    public void Task1()
+    public void Transform()
     {
         for (int x = 0; x < boardSizeX; x++)
         {
             for (int y = 0; y < boardSizeY; y++)
             {
                 BoardCell boardCell = Cells[x, y];
+                NormalItem normalItem = boardCell.Item as NormalItem;
 
-                FishItem fishItem = ConvertToFishItem(boardCell);
+                FishItem fishItem = ConvertToFishItem(normalItem, boardCell.BoardX, boardCell.BoardY);
                 fishItem.SetView();
                 fishItem.SetViewRoot(Root);
                 
@@ -773,15 +774,13 @@ public class Board
         }
     }
 
-    private FishItem ConvertToFishItem(BoardCell boardCell)
+    private FishItem ConvertToFishItem(NormalItem normalItem, int x, int y)
     {
-        NormalItem normalItem = boardCell.Item as NormalItem;
-        
         FishItem fishItem = new FishItem();
 
         int normalTypeIndex = (int)normalItem.ItemType;
         
-        int fishTypeIndex = (normalTypeIndex + transformMatrix[boardCell.BoardY, boardCell.BoardX]) % Constants.NUMBER_OF_NORMAL_ITEM;
+        int fishTypeIndex = (normalTypeIndex + transformMatrix[y, x]) % Constants.NUMBER_OF_NORMAL_ITEM;
         
         if(fishTypeIndex < 0) 
             fishTypeIndex += Constants.NUMBER_OF_NORMAL_ITEM;
